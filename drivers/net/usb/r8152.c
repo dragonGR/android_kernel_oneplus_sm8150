@@ -3251,6 +3251,8 @@ static u16 r8153_phy_status(struct r8152 *tp, u16 desired)
 		}
 
 		msleep(20);
+		if (test_bit(RTL8152_UNPLUG, &tp->flags))
+			break;
 	}
 
 	return data;
@@ -3291,6 +3293,8 @@ static void r8153b_ups_en(struct r8152 *tp, bool enable)
 			    AUTOLOAD_DONE)
 				break;
 			msleep(20);
+		if (test_bit(RTL8152_UNPLUG, &tp->flags))
+			break;
 		}
 
 		data = r8153_phy_status(tp, 0);
@@ -10842,6 +10846,8 @@ static void r8156_init(struct r8152 *tp)
 		    AUTOLOAD_DONE)
 			break;
 		msleep(20);
+		if (test_bit(RTL8152_UNPLUG, &tp->flags))
+			break;
 	}
 
 	data = r8153_phy_status(tp, 0);
